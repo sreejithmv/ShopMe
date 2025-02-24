@@ -26,7 +26,7 @@ export default function App() {
           <Stack.Screen
             name="Dashboard"
             component={TabViewExample}
-            options={{title: 'ShopMe', headerRight: () => <CartIcon />}}
+            options={{title: 'ShopMe',  headerRight: () => <CartIcon />}}
           />
           <Stack.Screen
             name="ProductDetail"

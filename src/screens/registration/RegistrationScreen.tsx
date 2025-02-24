@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import ModalActivityIndicator from '../../common/loading';
 import theme from '../../common/theme';
+import User from '../../models/user';
 import usersServices from '../../services/users.services';
 import styles from './style';
 
@@ -43,18 +44,21 @@ function RegistrationScreen(): React.JSX.Element {
       return;
     } else {
       setScreenIsWaiting(true);
-      const user = {
+      const user: User = {
         email,
         username: email,
         password: password,
-        name: {firstname: firstName, lastname: lastName},
+        name: { firstname: firstName, lastname: lastName },
         address: {
           street: '',
           city: '',
           zipcode: '',
-          geolocation: {lat: '', long: ''},
+          number: 0,
+          geolocation: { lat: '', long: '' },
         },
         phone: '',
+        id: 0,
+        __v: 0,
       };
 
       usersServices.register(user).then(response => {

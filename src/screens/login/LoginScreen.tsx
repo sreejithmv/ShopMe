@@ -7,7 +7,7 @@ import {
   useColorScheme,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { TextInput, TouchableOpacity } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import ModalActivityIndicator from '../../common/loading';
@@ -35,7 +35,9 @@ function LoginScreen(): React.JSX.Element {
       .login(username, password)
       .then(response => {
         if (response.token) {
-          navigation.navigate('Dashboard', {token: response.token});
+          navigation.dispatch(
+            StackActions.replace('Dashboard', {token: response.token}),
+          );
         } else {
           Alert.alert('Login failed. Please check your credentials.');
         }
@@ -49,7 +51,10 @@ function LoginScreen(): React.JSX.Element {
 
   return (
     <View style={[styles.container, backgroundStyle]}>
-      <ModalActivityIndicator loadingMessage={'Logging in user'} show={screenIsWaiting} />
+      <ModalActivityIndicator
+        loadingMessage={'Logging in user'}
+        show={screenIsWaiting}
+      />
       <View style={styles.logoContainer}>
         <Text style={styles.logoText}>ShopMe</Text>
       </View>
@@ -81,11 +86,13 @@ function LoginScreen(): React.JSX.Element {
         </TouchableHighlight>
       </View>
       <View style={theme.linksContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Registration', {action: () => navigation.navigate('Cart')})}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Registration');
+          }}>
           <Text style={theme.linkText}>Register</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ForgetPassword')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>
           <Text style={theme.linkText}>Forget Password?</Text>
         </TouchableOpacity>
       </View>

@@ -31,7 +31,7 @@ class UserServices {
     }).then(response => response.json());
   }
   async register(user: User) {
-    return fetch('https://fakestoreapi.com/auth/register', {
+    return fetch('https://fakestoreapi.com/users', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(user),
